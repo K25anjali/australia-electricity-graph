@@ -154,7 +154,7 @@ const App = () => {
                       stackId="historical"
                       stroke="transparent"
                       fill={colors[key]}
-                      fillOpacity={0.6}
+                      fillOpacity={0.8}
                     />
                   ))}
                   {futureKeys.map((key) => (
