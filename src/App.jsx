@@ -36,32 +36,29 @@ const App = () => {
   };
 
   const colors = {
-    Biomass: '#90EE90',
+    Biomass: '#799735',
     Coal: '#000000',
-    Gas: '#FFA500',
-    Hydro: '#0000FF',
-    Solar: '#FFFF00',
-    Wind: '#ADD8E6',
-    Geothermal: '#FF00FF',
-    Oil: '#A52A2A',
-    OtherFossil: '#808080',
+    Gas: '#fe981f',
+    Hydro: '#1717ff',
+    Solar: '#ffc738', 
+    Wind: '#8cd5eb', 
+    Geothermal: '#d3ff79',
+    Oil: '#525252',
+    'Other Fossil': '#171717',
   };
 
-  const historicalKeys = ['Coal', 'Gas', 'Hydro', 'OtherFossil', 'Biomass', 'Solar', 'Wind'];
+  const historicalKeys = ['Coal', 'Gas', 'Hydro', 'Other Fossil', 'Biomass', 'Solar', 'Wind'];
   const futureKeys = ['Coal', 'Gas', 'Hydro', 'Geothermal', 'Oil', 'Biomass', 'Solar', 'Wind'];
+  const displayOrder = ['Wind', 'Solar', 'Biomass', 'Other Fossil', 'Hydro', 'Geothermal', 'Oil', 'Gas', 'Coal'];
 
   const CustomLegend = () => {
-    const allKeys = [...new Set([...historicalKeys, ...futureKeys])];
     return (
       <div className="md:w-52 w-full h-auto mt-6 md:mt-0 md:flex md:flex-col md:items-center md:justify-center">
-        {/* Heading on top */}
         <h3 className="text-base font-semibold mb-4 tracking-wide">
           Energy Source
         </h3>
-
-        {/* Legend items in row (sm) and col (md) */}
         <div className="flex flex-wrap md:flex-col md:gap-2 gap-3">
-          {allKeys.map((key) => (
+          {displayOrder.map((key) => (
             <div key={key} className="flex items-center">
               <div
                 className="md:w-5 md:h-5 w-3 h-3 md:mr-2 mr-1"
@@ -79,10 +76,11 @@ const App = () => {
     if (active && payload && payload.length) {
       const data = payload[0].payload;
       const keys = data.isFuture ? futureKeys : historicalKeys;
+      const orderedKeys = displayOrder.filter(key => keys.includes(key));
       return (
         <div className="bg-white p-4 border rounded shadow text-sm md:text-base">
           <p className="font-bold">{`Year: ${label}`}</p>
-          {keys.map((key) =>
+          {orderedKeys.map((key) =>
             data[key] ? (
               <p key={key} style={{ color: colors[key] }}>
                 {`${key}: ${data[key].toFixed(2)} TWh`}
@@ -102,20 +100,17 @@ const App = () => {
       onTouchStart={handleOutsideClick}
     >
       <div className="p-2 w-full max-w-5xl focus:outline-none" ref={chartRef}>
-        <h2 className="text-lg md:text-xl font-bold mb-4">
-          Electricity Generation in Australia
-        </h2>
-
         <div
           className="flex flex-col md:flex-row justify-center md:space-x-14"
           onMouseMove={handleChartInteraction}
           onTouchStart={handleChartInteraction}
         >
-          {/* Responsive & Scrollable chart */}
           <div className="w-full h-72 md:h-[500px] overflow-x-auto">
             <div className="max-md:min-w-[500px] h-full">
               <ResponsiveContainer width="100%" height="100%">
-                <ComposedChart data={historicalData} className="focus:outline-none">
+                <ComposedChart data={historicalData} className="focus:outline-none" 
+                margin={{left: 50}}
+                >
                   <CartesianGrid />
                   <XAxis
                     dataKey="year"
@@ -130,11 +125,11 @@ const App = () => {
                   />
                   <YAxis
                     label={{
-                      value: 'Electricity Generation(TWh)',
+                      value: 'Electricity Generation  (TWh)',
                       angle: -90,
-                      position: 'center',
-                      offset: 30,
-                      dx: -20,
+                      position: 'outsideLeft',
+                      offset: 80,
+                      dx: -40,
                       fontSize: 18,
                       color: 'black',
                     }}
@@ -165,7 +160,7 @@ const App = () => {
                       fill={colors[key]}
                       fillOpacity={0.8}
                       stackId="future"
-                      barSize={24}
+                      barSize={10}
                     />
                   ))}
 
