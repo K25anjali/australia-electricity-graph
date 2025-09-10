@@ -42,7 +42,8 @@ const App = () => {
     Hydro: '#1717ff',
     Solar: '#ffc738', 
     Wind: '#8cd5eb', 
-    Geothermal: '#d3ff79',
+    Geothermal: '#a7cc61',
+    // Geothermal: '#bde66d',
     Oil: '#525252',
     'Other Fossil': '#171717',
   };
