@@ -4,3 +4,16 @@
 .recharts-surface:focus {
 	outline: none !important;
 }
+
+html {
+	-webkit-text-size-adjust: 100%;
+}
+
+body {
+	font-family: ui-sans-serif, system-ui;
+	font-family: "Poppins", "ui-sans-serif";
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-rendering: optimizeLegibility;
+	font-size: 17px;
+}

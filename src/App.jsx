@@ -40,10 +40,9 @@ const App = () => {
     Coal: '#000000',
     Gas: '#fe981f',
     Hydro: '#1717ff',
-    Solar: '#ffc738', 
-    Wind: '#8cd5eb', 
+    Solar: '#ffc738',
+    Wind: '#8cd5eb',
     Geothermal: '#a7cc61',
-    // Geothermal: '#bde66d',
     Oil: '#525252',
     'Other Fossil': '#171717',
   };
@@ -55,17 +54,18 @@ const App = () => {
   const CustomLegend = () => {
     return (
       <div className="md:w-52 w-full h-auto mt-6 md:mt-0 md:flex md:flex-col md:items-center md:justify-center">
-        <h3 className="text-base font-semibold mb-4 tracking-wide">
+        <h3 className="text-lg md:text-xl font-semibold mb-4 tracking-wide">
           Energy Source
         </h3>
-        <div className="flex flex-wrap md:flex-col md:gap-2 gap-3">
+        <div className="flex flex-wrap md:flex-col gap-2">
           {displayOrder.map((key) => (
-            <div key={key} className="flex items-center">
+            <div key={key} className="flex items-center gap-2">
               <div
-                className="md:w-5 md:h-5 w-3 h-3 md:mr-2 mr-1"
+                className="md:w-5 md:h-5 w-3 h-3"
                 style={{ backgroundColor: colors[key], opacity: 0.8 }}
-              ></div>
-              <span className="text-sm">{key}</span>
+              >
+              </div>
+              <span className="text-sm md:text-base">{key}</span>
             </div>
           ))}
         </div>
@@ -79,8 +79,8 @@ const App = () => {
       const keys = data.isFuture ? futureKeys : historicalKeys;
       const orderedKeys = displayOrder.filter(key => keys.includes(key));
       return (
-        <div className="bg-white p-4 border rounded shadow text-sm md:text-base">
-          <p className="font-bold">{`Year: ${label}`}</p>
+        <div className="bg-white p-4 md:p-5 border rounded shadow text-base md:text-lg">
+          <p className="font-semibold">{`Year: ${label}`}</p>
           {orderedKeys.map((key) =>
             data[key] ? (
               <p key={key} style={{ color: colors[key] }}>
@@ -109,8 +109,8 @@ const App = () => {
           <div className="w-full h-72 md:h-[500px] overflow-x-auto">
             <div className="max-md:min-w-[500px] h-full">
               <ResponsiveContainer width="100%" height="100%">
-                <ComposedChart data={historicalData} className="focus:outline-none" 
-                margin={{left: 50}}
+                <ComposedChart data={historicalData} className="focus:outline-none"
+                  margin={{ left: 50 }}
                 >
                   <CartesianGrid />
                   <XAxis
@@ -131,7 +131,7 @@ const App = () => {
                       position: 'outsideLeft',
                       offset: 80,
                       dx: -40,
-                      fontSize: 18,
+                      fontSize: isMobile ? 16 : 20,
                       color: 'black',
                     }}
                     ticks={[0, 100, 200, 300, 400]}
@@ -169,16 +169,19 @@ const App = () => {
                     <Label
                       value="High Ambition"
                       position="top"
-                      fontSize={isMobile ? 10 : 16}
+                      fontSize={isMobile ? 12 : 18}
                       fill="black"
                       dy={isMobile ? 110 : 170}
                       dx={isMobile ? 2 : 5}
                       angle={-90}
                       textAnchor="middle"
-                      fontWeight="bold"
-                      style={{ letterSpacing: "1px" }}
+                      style={{
+                        letterSpacing: "1px",
+                        fontWeight: 600,
+                      }}
                     />
                   </ReferenceLine>
+
 
 
                 </ComposedChart>
